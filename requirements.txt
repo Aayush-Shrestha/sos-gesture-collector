@@ -1,0 +1,7 @@
+Flask==3.0.0
+flask-cors==4.0.0
+mega.py==1.0.8
+numpy==1.26.0
+werkzeug==3.0.0
+gunicorn==21.2.0
+python-dotenv==1.0.0

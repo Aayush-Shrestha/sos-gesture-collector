@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS Gesture Collection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/holistic/holistic.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container mt-4">
+    <div id="screen-welcome" class="text-center fade-in">
+        <h1 class="mb-4">Gesture Data Collection</h1>
+        <p class="lead">Help us train an AI to detect SOS signals.</p>
+        
+        <div class="card mx-auto mb-4" style="max-width: 600px;">
+            <div class="card-body">
+                <h5>Instructions</h5>
+                <ul class="text-start">
+                    <li>Ensure you are in a well-lit room.</li>
+                    <li>Your upper body and hands should be visible.</li>
+                    <li>You will record 40 frames (approx. 2 seconds).</li>
+                </ul>
+                <div class="video-placeholder bg-secondary mb-3 rounded" style="height: 200px; display:flex; align-items:center; justify-content:center; color:white;">
+                    [Demo Video Placeholder]
+                </div>
+            </div>
+        </div>
+
+        <h3>Select Gesture to Record:</h3>
+        <div class="d-flex justify-content-center gap-3 mt-3">
+            <button class="btn btn-danger btn-lg" onclick="selectAction('sos')">SOS Gesture</button>
+            <button class="btn btn-success btn-lg" onclick="selectAction('not_sos')">Non-SOS / Random</button>
+        </div>
+    </div>
+
+    <div id="screen-record" class="d-none text-center fade-in">
+        <h2 id="action-title" class="text-uppercase mb-3"></h2>
+        
+        <div class="position-relative mx-auto" style="max-width: 640px;">
+            <video id="input_video" class="d-none" autoplay playsinline></video>
+            
+            <canvas id="output_canvas" width="640" height="480" class="rounded border border-3 border-dark w-100"></canvas>
+            
+            <div id="countdown-overlay" class="overlay d-none">
+                <h1 id="countdown-text" style="font-size: 5rem; color: white; text-shadow: 2px 2px 4px #000;">3</h1>
+            </div>
+
+            <div class="progress mt-2" style="height: 20px;">
+                <div id="record-progress" class="progress-bar bg-primary" role="progressbar" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="controls mt-4">
+            <button id="btn-start" class="btn btn-primary btn-lg px-5" disabled>Loading Camera...</button>
+            <button id="btn-back" class="btn btn-secondary btn-lg" onclick="location.reload()">Back</button>
+        </div>
+        <p id="status-text" class="mt-2 text-muted">Initializing MediaPipe...</p>
+    </div>
+
+    <div id="screen-review" class="d-none text-center fade-in">
+        <h2>Review Recording</h2>
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-6">
+                <h5>With Landmarks</h5>
+                <video id="review-overlay" controls class="w-100 rounded"></video>
+            </div>
+            </div>
+
+        <div class="mt-4">
+            <div id="upload-status" class="alert alert-info d-none">Uploading... Please wait.</div>
+            <button id="btn-submit" class="btn btn-success btn-lg px-5" onclick="submitData()">Submit Data</button>
+            <button class="btn btn-warning btn-lg" onclick="resetRecording()">Redo</button>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/recorder.js') }}"></script>
+</body>
+</html>
