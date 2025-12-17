@@ -1,12 +1,4 @@
-# MEGA Drive Credentials
-# Keep this file secure and add it to .gitignore
+import os
 
-MEGA_EMAIL = "aayush.sth.nep@gmail.com"
-MEGA_PASSWORD = "A%ieo*29DX"
-
-# Optional: Folder path on MEGA where files should be uploaded
-MEGA_FOLDER_PATH = "SOS"
-
-# Optional: Other configuration settings
-UPLOAD_TIMEOUT = 300  # seconds
-MAX_RETRY_ATTEMPTS = 3
+MEGA_EMAIL = os.environ.get("MEGA_EMAIL", "your_email@example.com")
+MEGA_PASSWORD = os.environ.get("MEGA_PASSWORD", "your_password")
