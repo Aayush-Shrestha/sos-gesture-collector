@@ -2,7 +2,7 @@
 let selectedAction = '';
 let isRecording = false;
 let recordedFrames = 0;
-const MAX_FRAMES = 40;
+const MAX_FRAMES = 60;
 let landmarkData = []; // To store {left: [], right: []} per frame
 
 // MediaRecorder vars
@@ -37,8 +37,8 @@ const camera = new Camera(videoElement, {
     onFrame: async () => {
         await holistic.send({image: videoElement});
     },
-    width: 640,
-    height: 480
+    width: 750,
+    height: 600
 });
 
 // Start Camera immediately but hidden
