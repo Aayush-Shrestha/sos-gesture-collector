@@ -24,13 +24,19 @@
                 <ul class="text-start">
                     <li>Ensure you are in a well-lit room.</li>
                     <li>Your hand/s should be visible.</li>
-                    <li>You will record 60 frames (approx. 4 seconds).</li>
+                    <li>You will record 90 frames (approx. 4 seconds).</li>
                     <li>Click on the button below to select the category.</li>
                     <li>You will have the option to retake the video or submit at the end.</li>
                 </ul>
                 <h5>Thank You For Your Support</h5>
-                <div class="video-placeholder bg-secondary mb-3 rounded" style="height: 200px; display:flex; align-items:center; justify-content:center; color:white;">
+                <!-- <div class="video-placeholder bg-secondary mb-3 rounded" style="height: 200px; display:flex; align-items:center; justify-content:center; color:white;">
                     [Demo Video Placeholder]
+                </div> -->
+                <div class="video-wrapper">
+                    <video id="demo-video" autoplay loop muted playsinline>
+                        <source src="{{ url_for('static', filename='videos/demo.mp4') }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
             </div>
         </div>

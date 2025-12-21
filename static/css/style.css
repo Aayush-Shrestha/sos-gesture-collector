@@ -7,3 +7,21 @@ body { background-color: #f8f9fa; }
     display: flex; align-items: center; justify-content: center;
     z-index: 10;
 }
+/* Wrapper to center the video */
+.video-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #000;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* The Video Styling (No Rotation) */
+#demo-video {
+    width: 100%;           /* Fills the wrapper width */
+    max-width: 600px;      /* Stops it from getting too huge on desktop */
+    height: auto;          /* Maintains aspect ratio */
+    border-radius: 8px;
+}

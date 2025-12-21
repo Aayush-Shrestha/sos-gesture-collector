@@ -2,7 +2,7 @@
 let selectedAction = '';
 let isRecording = false;
 let recordedFrames = 0;
-const MAX_FRAMES = 60;
+const MAX_FRAMES = 90;
 let landmarkData = []; // To store {left: [], right: []} per frame
 
 // MediaRecorder vars

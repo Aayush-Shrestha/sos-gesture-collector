@@ -78,7 +78,7 @@ def upload_data():
         os.makedirs(landmarks_path, exist_ok=True)
         lm_data = json.load(landmarks_json)
         for i, frame in enumerate(lm_data):
-            if i >= 40: break
+            if i >= 90: break
             np.save(os.path.join(landmarks_path, f"{i}.npy"), extract_keypoints_from_json(frame))
 
         # 3. Upload to Hugging Face
