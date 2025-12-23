@@ -33,7 +33,7 @@
                     [Demo Video Placeholder]
                 </div> -->
                 <div class="video-wrapper">
-                    <video id="demo-video" autoplay loop muted playsinline>
+                    <video id="demo-video" controls playsinline width="100%" controlsList="nodownload" oncontextmenu="return false;">
                         <source src="{{ url_for('static', filename='videos/demo.mp4') }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <h3>Select Gesture to Record:</h3>
+        <h3>Select Gesture to Start Recording:</h3>
         <div class="d-flex justify-content-center gap-3 mt-3">
             <button class="btn btn-danger btn-lg" onclick="selectAction('sos')">SOS Gesture</button>
             <button class="btn btn-success btn-lg" onclick="selectAction('not_sos')">Non-SOS / Random</button>

@@ -25,3 +25,9 @@ body { background-color: #f8f9fa; }
     height: auto;          /* Maintains aspect ratio */
     border-radius: 8px;
 }
+
+/* Mirror the camera feed and the drawing canvas */
+#input_video, #output_canvas {
+    transform: scaleX(-1); /* Flips horizontally */
+    -webkit-transform: scaleX(-1); /* For Safari/Chrome compatibility */
+}

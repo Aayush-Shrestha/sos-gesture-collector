@@ -2,9 +2,13 @@
 let selectedAction = '';
 let isRecording = false;
 let recordedFrames = 0;
-const MAX_FRAMES = 90;
 let landmarkData = []; // To store {left: [], right: []} per frame
+// --- CONFIGURATION ---
+const TARGET_FPS = 20;
+const FRAME_INTERVAL = 1000 / TARGET_FPS; // 50ms
+const MAX_FRAMES = 90; // 90 frames @ 20 FPS = 4.5 Seconds
 
+let lastFrameTime = 0; // To track timing
 // MediaRecorder vars
 let mediaRecorderRaw;
 let mediaRecorderOverlay;
@@ -35,12 +39,23 @@ holistic.onResults(onResults);
 // Camera Setup
 const camera = new Camera(videoElement, {
     onFrame: async () => {
+        const now = Date.now();
+        const elapsed = now - lastFrameTime;
+
+        // IF: Not enough time has passed (less than 50ms), SKIP this frame
+        if (elapsed < FRAME_INTERVAL) {
+            return;
+        }
+
+        // ELSE: Process the frame
+        // Adjust lastFrameTime to keep the rhythm steady
+        lastFrameTime = now - (elapsed % FRAME_INTERVAL);
+
         await holistic.send({image: videoElement});
     },
     width: 750,
     height: 600
 });
-
 // Start Camera immediately but hidden
 camera.start();
 
@@ -124,15 +139,23 @@ function beginCapture() {
     chunksRaw = [];
     chunksOverlay = [];
 
-    // Setup Recorders
-    const streamRaw = videoElement.captureStream(30);
-    const streamOverlay = canvasElement.captureStream(30);
+    // Capture streams at 20 FPS
+    const streamRaw = videoElement.captureStream(TARGET_FPS);
+    const streamOverlay = canvasElement.captureStream(TARGET_FPS);
 
-    mediaRecorderRaw = new MediaRecorder(streamRaw, {mimeType: 'video/webm'});
-    mediaRecorderOverlay = new MediaRecorder(streamOverlay, {mimeType: 'video/webm'});
+    // Initialize Recorders
+    mediaRecorderRaw = new MediaRecorder(streamRaw, {
+        mimeType: 'video/webm; codecs=vp9',
+        videoBitsPerSecond: 2500000 // Optional: Better quality
+    });
+    
+    mediaRecorderOverlay = new MediaRecorder(streamOverlay, {
+        mimeType: 'video/webm; codecs=vp9',
+        videoBitsPerSecond: 2500000
+    });
 
     mediaRecorderRaw.ondataavailable = (e) => { if(e.data.size > 0) chunksRaw.push(e.data); };
-    mediaRecorderOverlay.ondataavailable = (e) => { if(e.data.size > 0) chunksOverlay.push(e.data); };
+    mediaRecorderOverlay.ondataavailable = (e) => { if(e.data.size > 0) chunksOverlay.push(e.data); };// ... (Rest of your existing code for ondataavailable) ...
 
     mediaRecorderRaw.start();
     mediaRecorderOverlay.start();
