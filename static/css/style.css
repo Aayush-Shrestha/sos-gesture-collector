@@ -26,8 +26,8 @@ body { background-color: #f8f9fa; }
     border-radius: 8px;
 }
 
-/* Mirror the camera feed and the drawing canvas */
-#input_video, #output_canvas {
-    transform: scaleX(-1); /* Flips horizontally */
-    -webkit-transform: scaleX(-1); /* For Safari/Chrome compatibility */
+/* Mirror the Camera, Canvas, AND Review Video */
+#input_video, #output_canvas, #review-overlay {
+    transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
 }
